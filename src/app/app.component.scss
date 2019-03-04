@@ -1,0 +1,29 @@
+@import "./../assets/variables";
+
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: inherit;
+  padding: $main-app-margin;
+}
+
+.main__wrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: $main-app-width;
+  width: 100%;
+}
+
+.main__wrapper-row {
+  display: flex;
+
+  &:not(:first-child) {
+    margin-top: $main-app-margin/2;
+  }
+
+  &:not(:last-child) {
+    margin-bottom: $main-app-margin/2;
+  }
+}

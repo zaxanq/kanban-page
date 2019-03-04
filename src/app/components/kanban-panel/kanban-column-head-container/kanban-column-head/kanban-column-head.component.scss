@@ -1,0 +1,12 @@
+@import '../../../../../assets/shared/kanban-column';
+
+:host {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.kanban-column-head__name,
+.kanbna-column-head__sort-buttons {
+  display: flex;
+  align-items: center;
+}
