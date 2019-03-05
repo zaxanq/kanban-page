@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-kanban-column-body-container',
@@ -6,7 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./kanban-column-body-container.component.scss']
 })
 export class KanbanColumnBodyContainerComponent implements OnInit {
-
   constructor() { }
 
   ngOnInit() {
