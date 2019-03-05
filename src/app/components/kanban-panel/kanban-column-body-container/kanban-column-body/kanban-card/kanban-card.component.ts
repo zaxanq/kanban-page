@@ -7,9 +7,14 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class KanbanCardComponent implements OnInit {
   @Input() task: object;
+  @Input() status: number;
+  @Input() isActive = false;
   constructor() { }
 
   ngOnInit() {
   }
 
+  toggleCardActive() {
+    this.isActive = !this.isActive;
+  }
 }
