@@ -5,7 +5,7 @@
   align-items: center;
   background: $color-light-100;
   padding-left: $main-app-margin;
-  @include mat-elevation(1);
+  @include mat-elevation(0);
 
   &:not(:first-of-type) {
     margin-left: $main-app-margin;
@@ -16,6 +16,11 @@
   }
 }
 
+.kanban-column-head__name {
+  > * {
+    font-weight: 400;
+  }
+}
 .kanban-column-head__name,
 .kanban-column-head__sort-buttons {
   display: flex;

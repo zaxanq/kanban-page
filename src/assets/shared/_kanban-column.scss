@@ -3,4 +3,12 @@
 :host {
   display: flex;
   flex: 1;
+
+  &:not(:first-of-type) {
+    margin-left: $main-app-margin;
+  }
+
+  &:not(:last-of-type) {
+    margin-right: $main-app-margin;
+  }
 }

@@ -1,6 +1,43 @@
 @import '../../../../../assets/shared/kanban-column';
 
+
 :host {
-  justify-content: center;
-  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  margin-top: $main-app-margin;
+  padding: $main-app-margin;
+  background: $color-light-200;
+  flex: 1;
+  overflow: auto;
+
+  .kanban-card {
+    border-left: 0.4rem solid transparent;
+  }
+
+  &.column--to-do {
+    .kanban-card {
+      border-left-color: $color-to-do-100;
+    }
+  }
+
+  &.column--in-progress {
+    .kanban-card {
+      border-left-color: $color-in-progress-100;
+    }
+  }
+
+  &.column--done {
+    .kanban-card {
+      border-left-color: $color-done-100;
+    }
+  }
 }
+
+.kanban-card {
+  background: $color-light-100;
+
+  &:not(:last-of-type) {
+    margin-bottom: $main-app-margin;
+  }
+}
+

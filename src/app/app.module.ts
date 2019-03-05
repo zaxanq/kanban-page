@@ -9,6 +9,7 @@ import { KanbanColumnHeadContainerComponent } from './components/kanban-panel/ka
 import { KanbanColumnBodyContainerComponent } from './components/kanban-panel/kanban-column-body-container/kanban-column-body-container.component';
 import { KanbanColumnBodyComponent } from './components/kanban-panel/kanban-column-body-container/kanban-column-body/kanban-column-body.component';
 import { KanbanColumnHeadComponent } from './components/kanban-panel/kanban-column-head-container/kanban-column-head/kanban-column-head.component';
+import { KanbanCardComponent } from './components/kanban-panel/kanban-column-body-container/kanban-column-body/kanban-card/kanban-card.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { KanbanColumnHeadComponent } from './components/kanban-panel/kanban-colu
     KanbanColumnHeadContainerComponent,
     KanbanColumnBodyContainerComponent,
     KanbanColumnBodyComponent,
-    KanbanColumnHeadComponent
+    KanbanColumnHeadComponent,
+    KanbanCardComponent
   ],
   imports: [
     BrowserModule,

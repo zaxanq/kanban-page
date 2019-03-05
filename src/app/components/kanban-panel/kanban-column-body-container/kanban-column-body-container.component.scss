@@ -1,1 +1,5 @@
 @import './../../../../assets/shared/kanban-column-container';
+
+:host {
+  flex: 1;
+}

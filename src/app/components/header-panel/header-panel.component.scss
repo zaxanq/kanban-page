@@ -1,6 +1,7 @@
 @import "./../../../assets/variables";
 
 .header-panel__card {
+  @include mat-elevation(0);
   background-color: $color-light-100;
   flex: 1;
 }

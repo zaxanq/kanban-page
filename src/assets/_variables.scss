@@ -1,14 +1,29 @@
 @import '~@angular/material/theming';
 
-$main-app-width: 80rem;
+$main-app-width: 100rem;
 $main-app-margin: 1rem;
 
 $color-light-100: #fff;
 $color-light-200: #f4f4f4;
 
+$shadow-100: rgba(0, 0, 0, 0.07);
+
 $color-dark-100: #000;
 $color-dark-300: #111;
 $color-dark-300: #222;
+
+$color-to-do-100: #e44;
+$color-to-do-200: #f7cac7;
+$color-to-do-300: #fefafa;
+
+$color-in-progress-100: #f1df27;
+$color-in-progress-200: #f7f0c4;
+$color-in-progress-300: #fffffa;
+
+$color-done-100: #6fd644;
+$color-done-200: #d4f3c7;
+$color-done-200: #f6fff4;
+
 
 $primary: (
   50 : #e7f0f9,

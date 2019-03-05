@@ -13,20 +13,21 @@
   display: flex;
   flex-direction: column;
   max-width: $main-app-width;
-  background: linear-gradient(to bottom, $color-light-200, $color-light-100 200px);
+  background: linear-gradient(to bottom, $color-light-200, $color-light-100 300px);
   width: 100%;
   height: 100%;
   margin-bottom: $main-app-margin;
+  padding: $main-app-margin;
 }
 
 .main__wrapper-row {
   display: flex;
 
   &:not(:first-child) {
-    margin-top: $main-app-margin;
+    margin-top: $main-app-margin/2;
   }
 
   &:not(:last-child) {
-    margin-bottom: $main-app-margin;
+    margin-bottom: $main-app-margin/2;
   }
 }
