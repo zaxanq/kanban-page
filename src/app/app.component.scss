@@ -5,25 +5,28 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  height: inherit;
-  padding: $main-app-margin;
+  flex: 1;
+  padding-top: $main-app-margin;
 }
 
 .main__wrapper {
   display: flex;
   flex-direction: column;
   max-width: $main-app-width;
+  background: linear-gradient(to bottom, $color-light-200, $color-light-100 200px);
   width: 100%;
+  height: 100%;
+  margin-bottom: $main-app-margin;
 }
 
 .main__wrapper-row {
   display: flex;
 
   &:not(:first-child) {
-    margin-top: $main-app-margin/2;
+    margin-top: $main-app-margin;
   }
 
   &:not(:last-child) {
-    margin-bottom: $main-app-margin/2;
+    margin-bottom: $main-app-margin;
   }
 }

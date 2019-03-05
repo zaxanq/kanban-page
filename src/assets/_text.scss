@@ -3,8 +3,9 @@ html {
 }
 
 body {
-  font: 300 1.4rem 'Roboto Condensed', sans-serif;
-  color: $main-text-color;
+  font-weight: 300;
+  font-size: 1.4rem;
+  color: $color-dark-300;
 }
 
 h1, .h1,

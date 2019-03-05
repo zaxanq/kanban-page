@@ -1,5 +1,17 @@
+@import '~@angular/material/theming';
+
+$custom-typography: mat-typography-config(
+  $font-family: 'Roboto Condensed'
+);
+
+@include mat-core($custom-typography);
+
 $main-app-width: 80rem;
 $main-app-margin: 1rem;
 
-$main-card-background: #f4f4f4;
-$main-text-color: #222;
+$color-light-100: #fff;
+$color-light-200: #f4f4f4;
+
+$color-dark-100: #000;
+$color-dark-200: #111;
+$color-dark-300: #222;

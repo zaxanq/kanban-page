@@ -3,10 +3,21 @@
 :host {
   justify-content: space-between;
   align-items: center;
+  background: $color-light-100;
+  padding-left: $main-app-margin;
+  @include mat-elevation(1);
+
+  &:not(:first-of-type) {
+    margin-left: $main-app-margin;
+  }
+
+  &:not(:last-of-type) {
+    margin-right: $main-app-margin;
+  }
 }
 
 .kanban-column-head__name,
-.kanbna-column-head__sort-buttons {
+.kanban-column-head__sort-buttons {
   display: flex;
   align-items: center;
 }
