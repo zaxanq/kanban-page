@@ -1,11 +1,5 @@
 @import '~@angular/material/theming';
 
-$custom-typography: mat-typography-config(
-  $font-family: 'Roboto Condensed'
-);
-
-@include mat-core($custom-typography);
-
 $main-app-width: 80rem;
 $main-app-margin: 1rem;
 
@@ -13,5 +7,38 @@ $color-light-100: #fff;
 $color-light-200: #f4f4f4;
 
 $color-dark-100: #000;
-$color-dark-200: #111;
+$color-dark-300: #111;
 $color-dark-300: #222;
+
+$primary: (
+  50 : #e7f0f9,
+  100 : #c2dbf1,
+  200 : #9ac3e8,
+  300 : #71aade,
+  400 : #5298d7,
+  500 : #3486d0,
+  600 : #2f7ecb,
+  700 : #2773c4,
+  800 : #2169be,
+  900 : #1556b3,
+  A100 : #e5efff,
+  A200 : #b2cfff,
+  A400 : #7fafff,
+  A700 : #659fff,
+  contrast: (
+    50 : $color-dark-300,
+    100 : $color-dark-300,
+    200 : $color-dark-300,
+    300 : $color-dark-300,
+    400 : $color-light-200,
+    500 : $color-light-200,
+    600 : $color-light-200,
+    700 : $color-light-200,
+    800 : $color-light-200,
+    900 : $color-light-200,
+    A100 : $color-dark-300,
+    A200 : $color-dark-300,
+    A400 : $color-dark-300,
+    A700 : $color-dark-300,
+  )
+);
