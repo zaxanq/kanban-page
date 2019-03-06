@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import { Task } from '../../../../interfaces/task.interface';
 
 @Component({
   selector: 'app-kanban-column-body',
@@ -7,7 +8,8 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class KanbanColumnBodyComponent implements OnInit {
   @Input() status: number;
-  taskList = [
+  @Input() isActive = false;
+  taskList: Task[] = [
     {
       id: 1,
       status: 0,
@@ -65,7 +67,20 @@ export class KanbanColumnBodyComponent implements OnInit {
   ];
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void {}
+  toggleCardActive($event: MouseEvent): void {
+    $event.stopPropagation();
+    const activeClass = 'card--active';
+    const previousSelection = document.getElementsByClassName(activeClass)[0];
+    const target = $event.currentTarget  as HTMLTextAreaElement;
+    this.isActive = true;
+    target.classList.add(activeClass);
+    if (target === previousSelection) {
+      target.classList.remove(activeClass);
+    }
+    if (previousSelection) {
+      previousSelection.classList.remove(activeClass);
+    }
+    console.log($event.currentTarget);
   }
-
 }

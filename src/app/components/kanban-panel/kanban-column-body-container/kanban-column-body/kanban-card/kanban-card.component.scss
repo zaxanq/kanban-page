@@ -1,11 +1,14 @@
 @import './../../../../../../assets/variables';
 
 $kanban-card-button-size: 3rem;
+$main-color: mat-color($primary, 500);
 
 :host {
   display: block;
+  position: relative;
   padding: $main-app-margin;
   box-shadow: 0 0.2rem 0.1rem 0 $shadow-100;
+  cursor: pointer;
 }
 
 .kanban-card__header {
@@ -28,4 +31,24 @@ $kanban-card-button-size: 3rem;
     height: $kanban-card-button-size;
     line-height: $kanban-card-button-size;
   }
+}
+
+.kanban-card__overlay {
+  display: none;
+}
+
+:host.card--active {
+  .kanban-card__overlay {
+    display: flex;
+  }
+}
+
+.kanban-card__overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: $main-color;
+  opacity: 0.75;
 }

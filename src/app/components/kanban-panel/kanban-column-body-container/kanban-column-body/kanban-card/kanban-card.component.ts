@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import { Task } from '../../../../../interfaces/task.interface';
 
 @Component({
   selector: 'app-kanban-card',
@@ -6,15 +7,10 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./kanban-card.component.scss']
 })
 export class KanbanCardComponent implements OnInit {
-  @Input() task: object;
+  @Input() task: Task;
   @Input() status: number;
-  @Input() isActive = false;
   constructor() { }
 
-  ngOnInit() {
-  }
-
-  toggleCardActive() {
-    this.isActive = !this.isActive;
+  ngOnInit(): void {
   }
 }
