@@ -76,15 +76,16 @@ export class KanbanColumnBodyComponent implements OnInit {
   ngOnInit(): void {}
 
 
-  toggleCardActive($event: MouseEvent): void {
-    $event.stopPropagation();
-    $event.preventDefault();
+  toggleCardActive(event: MouseEvent): void {
+    const ignoredTags = ['mat-icon', 'input', 'textarea', 'h4', 'span'];
+    event.stopPropagation();
+    event.preventDefault();
     const activeClass = 'card--active';
     const previousSelection = document.getElementsByClassName(activeClass)[0]; // previous selected card (with card-active class)
-    const target = $event.currentTarget as HTMLTextAreaElement; // clicked card
-    const specificTarget = $event.target as HTMLTextAreaElement; // specific clicked element
+    const target = event.currentTarget as HTMLTextAreaElement; // clicked card
+    const specificTarget = event.target as HTMLTextAreaElement; // specific clicked element
     if (target.tagName === 'APP-KANBAN-CARD') { // if a card is clicked
-      if (specificTarget.tagName !== 'MAT-ICON') {
+      if (!ignoredTags.includes(specificTarget.tagName.toLowerCase())) {
         this.isActive = !this.isActive; // set Active
         target.classList.add(activeClass); // add Active class for clicked card
         if (previousSelection) { // if previous selected card exists

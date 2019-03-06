@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { MaterialModule } from './modules/material/material.module';
+import { FormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { HeaderPanelComponent } from './components/header-panel/header-panel.component';
@@ -10,6 +11,7 @@ import { KanbanColumnBodyContainerComponent } from './components/kanban-panel/ka
 import { KanbanColumnBodyComponent } from './components/kanban-panel/kanban-column-body-container/kanban-column-body/kanban-column-body.component';
 import { KanbanColumnHeadComponent } from './components/kanban-panel/kanban-column-head-container/kanban-column-head/kanban-column-head.component';
 import { KanbanCardComponent } from './components/kanban-panel/kanban-column-body-container/kanban-column-body/kanban-card/kanban-card.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { KanbanCardComponent } from './components/kanban-panel/kanban-column-bod
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule,
     MaterialModule
   ],
   providers: [],

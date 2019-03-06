@@ -9,16 +9,21 @@ $main-color: mat-color($primary, 500);
   padding: $main-app-margin;
   box-shadow: 0 0.2rem 0.1rem 0 $shadow-100;
   cursor: pointer;
+
+  &.hide-card {
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
 }
 
 .kanban-card__header {
   display: flex;
+  justify-content: space-between;
   align-items: flex-start;
 }
+
 .kanban-card__title {
-  display: flex;
   margin: $main-app-margin/2 $main-app-margin 0 0;
-  flex: 1;
 }
 
 .kanban-card__action-button {
@@ -61,3 +66,5 @@ $main-color: mat-color($primary, 500);
     color: $color-light-100;
   }
 }
+
+
