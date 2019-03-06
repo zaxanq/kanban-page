@@ -1,3 +1,3 @@
 <ng-container *ngFor="let task of taskList">
-  <app-kanban-card *ngIf="task.status === status" [task]="task" class="kanban-card" (click)="toggleCardActive($event)"></app-kanban-card>
+  <app-kanban-card *ngIf="task.status === status" id="card-{{task.id}}" [task]="task" class="kanban-card" (click)="toggleCardActive($event)"></app-kanban-card>
 </ng-container>

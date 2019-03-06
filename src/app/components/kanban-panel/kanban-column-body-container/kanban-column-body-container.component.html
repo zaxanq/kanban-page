@@ -1,3 +1,3 @@
-<app-kanban-column-body class="column--to-do" [status]="0"></app-kanban-column-body>
-<app-kanban-column-body class="column--in-progress" [status]="1"></app-kanban-column-body>
-<app-kanban-column-body class="column--done" [status]="2"></app-kanban-column-body>
+<app-kanban-column-body class="column--to-do" [status]="0" (click)="clearActive($event)" deselect="deselectCard"></app-kanban-column-body>
+<app-kanban-column-body class="column--in-progress" [status]="1" (click)="clearActive($event)" deselect="deselectCard"></app-kanban-column-body>
+<app-kanban-column-body class="column--done" [status]="2" (click)="clearActive($event)" deselect="deselectCard"></app-kanban-column-body>

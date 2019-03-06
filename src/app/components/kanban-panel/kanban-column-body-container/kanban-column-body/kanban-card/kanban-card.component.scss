@@ -34,21 +34,30 @@ $main-color: mat-color($primary, 500);
 }
 
 .kanban-card__overlay {
-  display: none;
+  z-index: -1;
+  opacity: 0;
 }
 
 :host.card--active {
   .kanban-card__overlay {
-    display: flex;
+    z-index: 1;
+    opacity: 1;
+    transition: opacity 0.25s;
   }
 }
 
 .kanban-card__overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
   left: 0;
-  background: $main-color;
-  opacity: 0.75;
+  background: rgba($main-color, 0.75);
+
+  .mat-icon {
+    color: $color-light-100;
+  }
 }

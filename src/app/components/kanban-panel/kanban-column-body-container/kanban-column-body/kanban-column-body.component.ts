@@ -9,6 +9,7 @@ import { Task } from '../../../../interfaces/task.interface';
 export class KanbanColumnBodyComponent implements OnInit {
   @Input() status: number;
   @Input() isActive = false;
+  @Input() deselect: boolean;
   taskList: Task[] = [
     {
       id: 1,
@@ -65,22 +66,35 @@ export class KanbanColumnBodyComponent implements OnInit {
       content: 'Status taska to 2. Jego ramka będzie zielona.'
     }
   ];
-  constructor() { }
+  constructor() {
+    if (this.deselect === true) {
+    console.log('MAMY TO');
+    this.isActive = false;
+    }
+  }
 
   ngOnInit(): void {}
+
+
   toggleCardActive($event: MouseEvent): void {
     $event.stopPropagation();
+    $event.preventDefault();
     const activeClass = 'card--active';
-    const previousSelection = document.getElementsByClassName(activeClass)[0];
-    const target = $event.currentTarget  as HTMLTextAreaElement;
-    this.isActive = true;
-    target.classList.add(activeClass);
-    if (target === previousSelection) {
-      target.classList.remove(activeClass);
+    const previousSelection = document.getElementsByClassName(activeClass)[0]; // previous selected card (with card-active class)
+    const target = $event.currentTarget as HTMLTextAreaElement; // clicked card
+    const specificTarget = $event.target as HTMLTextAreaElement; // specific clicked element
+    if (target.tagName === 'APP-KANBAN-CARD') { // if a card is clicked
+      if (specificTarget.tagName !== 'MAT-ICON') {
+        this.isActive = !this.isActive; // set Active
+        target.classList.add(activeClass); // add Active class for clicked card
+        if (previousSelection) { // if previous selected card exists
+          previousSelection.classList.remove(activeClass); // deselect it
+          if (target === previousSelection ) { // if clicked card was already active
+            target.classList.remove(activeClass); // deselect it
+          }
+        }
+      }
     }
-    if (previousSelection) {
-      previousSelection.classList.remove(activeClass);
-    }
-    console.log($event.currentTarget);
+    console.log(target);
   }
 }

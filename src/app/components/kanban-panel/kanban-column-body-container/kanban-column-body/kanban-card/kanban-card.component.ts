@@ -9,8 +9,12 @@ import { Task } from '../../../../../interfaces/task.interface';
 export class KanbanCardComponent implements OnInit {
   @Input() task: Task;
   @Input() status: number;
+  @Input() isFavourite = false;
   constructor() { }
 
   ngOnInit(): void {
+  }
+  toggleFavourite():void {
+   this.isFavourite = !this.isFavourite;
   }
 }

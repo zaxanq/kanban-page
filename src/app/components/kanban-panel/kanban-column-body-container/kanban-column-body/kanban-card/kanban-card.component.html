@@ -2,10 +2,18 @@
   <div class="kanban-card__header">
     <h4 class="kanban-card__title">{{ task.title }}</h4>
     <div class="kanban-card__actions">
-      <button mat-icon-button [disabled]="task.status < 1" class="kanban-card__action-button" id="button--left" color="primary">
+      <button mat-icon-button
+              [disabled]="task.status < 1"
+              class="kanban-card__action-button"
+              id="button--left"
+              color="primary">
         <mat-icon>keyboard_arrow_left</mat-icon>
       </button>
-      <button mat-icon-button [disabled]="task.status > 1" class="kanban-card__action-button" id="button--right" color="primary">
+      <button mat-icon-button
+              [disabled]="task.status > 1"
+              class="kanban-card__action-button"
+              id="button--right"
+              color="primary">
         <mat-icon>keyboard_arrow_right</mat-icon>
       </button>
     </div>
@@ -14,4 +22,11 @@
   <span>{{ task.content }}</span>
   </div>
 </div>
-<div class="kanban-card__overlay"></div>
+<div class="kanban-card__overlay">
+  <button mat-icon-button (click)="toggleFavourite()">
+    <mat-icon>{{ isFavourite ? 'star' : 'star_border' }}</mat-icon>
+  </button>
+  <button mat-icon-button>
+    <mat-icon>delete_outline</mat-icon>
+  </button>
+</div>
