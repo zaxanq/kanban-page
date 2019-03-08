@@ -1,5 +1,4 @@
 import {Component, Input, OnInit} from '@angular/core';
-import { Task } from '../../../../interfaces/task.interface';
 
 @Component({
   selector: 'app-kanban-column-body',
@@ -7,75 +6,17 @@ import { Task } from '../../../../interfaces/task.interface';
   styleUrls: ['./kanban-column-body.component.scss']
 })
 export class KanbanColumnBodyComponent implements OnInit {
-  @Input() status: number;
+  @Input() columnStatus: number;
   @Input() isActive = false;
   @Input() deselect: boolean;
-  taskList: Task[] = [
-    {
-      id: 1,
-      status: 0,
-      title: 'Tytuł taska',
-      content: 'Do zrobienia jeszcze to i to i to i to. I tamto.'
-    },
-    {
-      id: 2,
-      status: 0,
-      title: 'Tytuł kolejnego taska',
-      content: 'To też trzeba zrobić.'
-    },
-    {
-      id: 3,
-      status: 0,
-      title: 'Tytuł jeszcze kolejnego taska',
-      content: 'Następna rzecz do zrobienia, która nie została jeszcze zaczęta, a dobrze byłoby ją skończyć.'
-    },
-    {
-      id: 4,
-      status: 1,
-      title: 'Tytuł rozpoczętego taska',
-      content: 'Ta rzecz z kolei jest już zaczęta, ale trzeba ją dokończyć.'
-    },
-    {
-      id: 5,
-      status: 1,
-      title: 'Task o statusie 1',
-      content: 'Czyli task in-progress. Do uzupełniania.'
-    },
-    {
-      id: 6,
-      status: 2,
-      title: 'Wykonany task',
-      content: 'Status taska to 2. W końcu chociaż jedna w pełni zakończona rzecz. :)'
-    },
-    {
-      id: 7,
-      status: 1,
-      title: 'Rozpoczęty task',
-      content: 'Status taska to 1. Jego ramka będzie żółta.'
-    },
-    {
-      id: 8,
-      status: 0,
-      title: 'Nierozpoczęty task',
-      content: 'Status taska to 0. Jego ramka będzie czerwona.'
-    },
-    {
-      id: 9,
-      status: 2,
-      title: 'Ukończony task',
-      content: 'Status taska to 2. Jego ramka będzie zielona.'
-    }
-  ];
   constructor() {
     if (this.deselect === true) {
-    console.log('MAMY TO');
-    this.isActive = false;
+      console.log('MAMY TO');
+      this.isActive = false;
     }
   }
-
-  ngOnInit(): void {}
-
-
+  ngOnInit(): void {
+  }
   toggleCardActive(event: MouseEvent): void {
     const ignoredTags = ['mat-icon', 'input', 'textarea', 'h4', 'span'];
     event.stopPropagation();
@@ -90,12 +31,14 @@ export class KanbanColumnBodyComponent implements OnInit {
         target.classList.add(activeClass); // add Active class for clicked card
         if (previousSelection) { // if previous selected card exists
           previousSelection.classList.remove(activeClass); // deselect it
-          if (target === previousSelection ) { // if clicked card was already active
+          if (target === previousSelection) { // if clicked card was already active
             target.classList.remove(activeClass); // deselect it
           }
         }
       }
     }
     console.log(target);
+  }
+  newTask() {
   }
 }
