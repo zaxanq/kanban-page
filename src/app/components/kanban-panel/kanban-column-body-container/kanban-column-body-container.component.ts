@@ -80,9 +80,9 @@ export class KanbanColumnBodyContainerComponent implements OnInit {
   deselectCard = false;
 
   constructor(private elementReference: ElementRef) { }
-
+  ngOnInit(): void {}
   taskUpdate(task) {
-    let taskToMove;
+    let taskToMove: Task;
     let targetList: Task[];
     if (task.status === 0) {
       targetList = this.taskListToDo;
@@ -93,34 +93,30 @@ export class KanbanColumnBodyContainerComponent implements OnInit {
     }
     for (let i = 0; i < targetList.length; i++) {
       if (task.id === targetList[i].id) {
-        taskToMove = targetList[i];
-        targetList.splice(i, 1);
+        taskToMove = targetList.splice(i, 1)[0];
         break;
       }
     }
     if (task.type === 'increase') {
+      taskToMove.status += 1;
       if (task.status === 0) {
-        // this.taskListInProgress = this.taskListInProgress.slice();
+        this.taskListInProgress = this.taskListInProgress.slice();
         this.taskListInProgress.push(taskToMove);
-        console.log(this.taskListInProgress);
-      }
-      if (task.status === 1) {
-        // this.taskListDone = this.taskListDone.slice();
+      } else if (task.status === 1) {
+        this.taskListDone = this.taskListDone.slice();
         this.taskListDone.push(taskToMove);
       }
     } else if (task.type === 'decrease') {
+      taskToMove.status -= 1;
       if (task.status === 1) {
-        // this.taskListToDo = this.taskListToDo.slice();
+        this.taskListToDo = this.taskListToDo.slice();
         this.taskListToDo.push(taskToMove);
-      }
-      if (task.status === 2) {
-        // this.taskListInProgress = this.taskListInProgress.slice();
+      } else if (task.status === 2) {
+        this.taskListInProgress = this.taskListInProgress.slice();
         this.taskListInProgress.push(taskToMove);
-        console.log(this.taskListInProgress);
       }
     }
   }
-  ngOnInit(): void {}
   clearActive($event: MouseEvent): void {
     const children = Array.from(this.elementReference.nativeElement.children);
     children.forEach((child) => {
