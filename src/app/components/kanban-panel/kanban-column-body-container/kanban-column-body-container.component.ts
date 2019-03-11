@@ -7,7 +7,7 @@ import {Component, ElementRef, OnInit} from '@angular/core';
 })
 
 export class KanbanColumnBodyContainerComponent implements OnInit {
-  deselectCard: boolean = false;
+  deselectCard = false;
   constructor(private elementReference: ElementRef) { }
 
   ngOnInit(): void {}

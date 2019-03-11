@@ -1,36 +1,52 @@
 <form>
   <div class="kanban-card">
     <div class="kanban-card__header">
-      <h4 class="kanban-card__title" [hidden]="editableTitle" (dblclick)="openEditable($event, 'title')">{{ task.title }}</h4>
-      <mat-form-field *ngIf="editableTitle">
-        <input matInput name="cardTitle" [(ngModel)]="task.title" (keypress)="closeEditable($event, 'title')">
-      </mat-form-field>
+      <h4 [hidden]="editableTitle || newTask" (dblclick)="openEditable($event, 'title')"><span class="kanban-card__title">{{ task.title }}</span></h4>
+      <div *ngIf="editableTitle || newTask" class="card__form-field">
+        <mat-form-field>
+            <input matInput #cardTitle name="cardTitle" [(ngModel)]="task.title" (keypress)="closeEditable($event, 'title')">
+        </mat-form-field>
+        <div class="form-field__button-container" *ngIf="editableContent">
+          <button mat-button type="button" color="warn" (click)="closeEditable({key: 'Enter'}, 'title')"><mat-icon>highlight_off</mat-icon> Cancel</button>
+          <button mat-button type="button" color="primary" (click)="closeEditable({key: 'Enter'}, 'title')"><mat-icon>check_circle_outline</mat-icon> Save</button>
+        </div>
+      </div>
       <div class="kanban-card__actions">
         <button mat-icon-button
                 [disabled]="task.status < 1"
                 class="kanban-card__action-button"
                 id="button--left"
-                color="primary">
+                color="primary"
+                type="button"
+                (click)="updateStatus('decrease')">
           <mat-icon>keyboard_arrow_left</mat-icon>
         </button>
         <button mat-icon-button
                 [disabled]="task.status > 1"
                 class="kanban-card__action-button"
                 id="button--right"
-                color="primary">
+                color="primary"
+                type="button"
+                (click)="updateStatus('increase')">
           <mat-icon>keyboard_arrow_right</mat-icon>
         </button>
       </div>
     </div>
     <div class="kanban-card__content">
-      <span [hidden]="editableContent" (dblclick)="openEditable($event, 'content')">{{ task.content }}</span>
-      <mat-form-field *ngIf="editableContent">
-        <textarea matInput name="cardContent" [(ngModel)]="task.content" (keypress)="closeEditable($event, 'content')"></textarea>
-      </mat-form-field>
+      <span [hidden]="editableContent || newTask" (dblclick)="openEditable($event, 'content')">{{ task.content }}</span>
+      <div *ngIf="editableContent || newTask" class="card__form-field">
+        <mat-form-field>
+          <textarea matInput #cardContent name="cardContent" [(ngModel)]="task.content" (keypress)="closeEditable($event, 'content')"></textarea>
+        </mat-form-field>
+        <div class="form-field__button-container" *ngIf="editableContent">
+          <button mat-button type="button" color="warn" (click)="closeEditable({key: 'Enter'}, 'content')"><mat-icon>highlight_off</mat-icon> Cancel</button>
+          <button mat-button type="button" color="primary" (click)="closeEditable({key: 'Enter'}, 'content')"><mat-icon>check_circle_outline</mat-icon> Save</button>
+        </div>
+      </div>
     </div>
   </div>
   <div class="kanban-card__overlay">
-    <button mat-icon-button (click)="toggleFavourite()">
+    <button mat-icon-button type="button" (click)="toggleFavourite()">
       <mat-icon>{{ isFavourite ? 'star' : 'star_border' }}</mat-icon>
     </button>
     <button mat-icon-button (click)="removeTask()">

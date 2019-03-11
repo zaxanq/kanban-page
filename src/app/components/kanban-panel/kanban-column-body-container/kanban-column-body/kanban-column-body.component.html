@@ -1,6 +1,8 @@
-  <app-kanban-card [(taskList)]="taskList" *ngIf="task.status === this.columnStatus" id="card-{{task.id}}" [task]="task" class="kanban-card" (click)="toggleCardActive($event)"></app-kanban-card>
-<div *ngIf="this.columnStatus === 0" class="kanban-column__add-button-container">
-  <button mat-icon-button class="kanban-column__add-button" color="primary">
+<ng-container *ngFor="let task of taskList">
+  <app-kanban-card *ngIf="task.status === status" id="{{task.id}}" [(task)]="task" class="kanban-card" [newTask]="task.isNew" (click)="toggleCardActive($event)"></app-kanban-card>
+</ng-container>
+<div *ngIf="status === 0" class="kanban-column__add-button-container">
+  <button mat-icon-button class="kanban-column__add-button" color="primary" type="button" (click)="createTask()">
     <mat-icon>add_circle_outline</mat-icon>
   </button>
 </div>

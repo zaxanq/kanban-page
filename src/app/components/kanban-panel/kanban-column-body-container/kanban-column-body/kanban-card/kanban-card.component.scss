@@ -9,20 +9,19 @@ $main-color: mat-color($primary, 500);
   padding: $main-app-margin;
   box-shadow: 0 0.2rem 0.1rem 0 $shadow-100;
   cursor: pointer;
-
-  &.hide-card {
-    opacity: 0;
-    transition: opacity 0.25s;
-  }
 }
 
 .kanban-card__header {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-}
 
+  > h4 {
+    flex: 1;
+  }
+}
 .kanban-card__title {
+  display: flex;
   margin: $main-app-margin/2 $main-app-margin 0 0;
 }
 
@@ -67,4 +66,21 @@ $main-color: mat-color($primary, 500);
   }
 }
 
+.kanban-card__content {
+  .mat-form-field {
+    width: 100%;
+  }
 
+  textarea {
+    max-height: 7.2rem;
+  }
+}
+
+.card-form-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-field__button-container {
+  display: flex;
+}
