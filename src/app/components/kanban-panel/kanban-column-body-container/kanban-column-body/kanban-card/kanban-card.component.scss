@@ -15,10 +15,6 @@ $main-color: mat-color($primary, 500);
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-
-  > h4 {
-    flex: 1;
-  }
 }
 .kanban-card__title {
   display: flex;

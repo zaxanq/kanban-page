@@ -1,4 +1,4 @@
-import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import { Task } from '../../../../../interfaces/task.interface';
 
 @Component({
@@ -8,16 +8,17 @@ import { Task } from '../../../../../interfaces/task.interface';
 })
 export class KanbanCardComponent implements OnInit {
   @Input() status: number;
+  @Input() taskList: Task[];
   @Input() task: Task;
   @Input() isFavourite = false;
   @Input() editableTitle = false;
   @Input() editableContent = false;
   @Input() newTask = false;
+  @Output() updatedTask = new EventEmitter;
   @ViewChild('cardTitle') cardTitle: ElementRef;
   @ViewChild('cardContent') cardContent: ElementRef;
   constructor(private elementReference: ElementRef) {}
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
   toggleFavourite(): void {
    this.isFavourite = !this.isFavourite;
   }
@@ -26,7 +27,7 @@ export class KanbanCardComponent implements OnInit {
     element.classList.add('hide-card');
     setTimeout(() => {
       element.remove();
-      console.log(element.id);
+      // console.log(element.id);
       // localStorage.removeItem(element.id);
     }, 250);
   }
@@ -46,19 +47,12 @@ export class KanbanCardComponent implements OnInit {
       if (what === 'title') {
         this.editableTitle = !this.editableTitle;
       } else if (what === 'content') {
-        console.log('toggleEditable CONTENT działa');
         this.editableContent = !this.editableContent;
       }
       this.newTask = false;
     }
   }
   updateStatus(type): void {
-    if ((this.task.status === 0 || this.task.status === 1) && type === 'increase') {
-      this.task.status += 1;
-      console.log('task +1');
-    } else if ((this.task.status === 1 || this.task.status === 2) && type === 'decrease') {
-      this.task.status -= 1;
-      console.log('task -1', this.task.status);
-    }
+      this.updatedTask.emit({id: this.task.id, status: this.task.status, type: type});
   }
 }

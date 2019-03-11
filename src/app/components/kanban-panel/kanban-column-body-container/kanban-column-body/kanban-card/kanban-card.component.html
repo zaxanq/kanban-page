@@ -6,7 +6,7 @@
         <mat-form-field>
             <input matInput #cardTitle name="cardTitle" [(ngModel)]="task.title" (keypress)="closeEditable($event, 'title')">
         </mat-form-field>
-        <div class="form-field__button-container" *ngIf="editableContent">
+        <div class="form-field__button-container" *ngIf="editableTitle">
           <button mat-button type="button" color="warn" (click)="closeEditable({key: 'Enter'}, 'title')"><mat-icon>highlight_off</mat-icon> Cancel</button>
           <button mat-button type="button" color="primary" (click)="closeEditable({key: 'Enter'}, 'title')"><mat-icon>check_circle_outline</mat-icon> Save</button>
         </div>
