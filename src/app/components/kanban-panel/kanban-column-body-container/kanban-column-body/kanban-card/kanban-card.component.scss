@@ -21,6 +21,10 @@ $main-color: mat-color($primary, 500);
   margin: $main-app-margin/2 $main-app-margin 0 0;
 }
 
+.kanban-card__actions {
+  display: flex;
+}
+
 .kanban-card__action-button {
   width: $kanban-card-button-size;
   height: $kanban-card-button-size;
