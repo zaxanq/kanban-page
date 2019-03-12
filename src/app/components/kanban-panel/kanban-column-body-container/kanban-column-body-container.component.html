@@ -1,4 +1,4 @@
 <app-kanban-column-body *ngFor="let column of columns" [ngClass]="column.class" (click)="clearActive($event)"
-                        deselect="deselectCard" (updatedTask)="taskUpdate($event)" [currentId]="currentId"
+                        (updatedTask)="taskUpdate($event)" [currentId]="currentId"
                         [taskList]="column.taskList" [taskListName]="column.taskListName" [status]="column.status">
 </app-kanban-column-body>

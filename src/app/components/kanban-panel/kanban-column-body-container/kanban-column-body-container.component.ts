@@ -24,7 +24,7 @@ export class KanbanColumnBodyContainerComponent implements OnInit {
   constructor(private elementReference: ElementRef) { }
 
   ngOnInit(): void {
-    if (!localStorage.getItem('taskListToDo')) {
+    if (!localStorage.getItem(this.columns[0].taskListName)) {
       this.setTaskList();
       this.currentId = 0;
     } else {
@@ -44,8 +44,6 @@ export class KanbanColumnBodyContainerComponent implements OnInit {
       if (JSON.parse(localStorage.getItem(this.columns[i].taskListName)).length > 0) {
         this.columns[i].taskList = JSON.parse(localStorage.getItem(this.columns[i].taskListName));
         this.maxId[i] = this.columns[i].taskList[this.columns[i].taskList.length - 1].id;
-      } else {
-        this.setTaskList();
       }
     }
   }
