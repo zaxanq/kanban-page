@@ -4,7 +4,7 @@
       <h4 [hidden]="editableTitle || newTask" (dblclick)="openEditable($event, 'title')"><span class="kanban-card__title">{{ task.title }}</span></h4>
       <div *ngIf="editableTitle || newTask" class="card__form-field">
         <mat-form-field>
-            <input matInput #cardTitle name="cardTitle" [(ngModel)]="task.title" value="task.title" (keypress)="closeEditable($event, 'title')">
+            <input matInput maxlength="80" #cardTitle name="cardTitle" [(ngModel)]="task.title" value="task.title" (keypress)="closeEditable($event, 'title')">
         </mat-form-field>
         <div class="form-field__button-container" *ngIf="editableTitle">
           <button mat-button type="button" color="warn" (click)="closeEditable({key: 'Escape'}, 'title')"><mat-icon>highlight_off</mat-icon> Cancel</button>
@@ -35,8 +35,8 @@
     <div class="kanban-card__content">
       <span [hidden]="editableContent || newTask" (dblclick)="openEditable($event, 'content')">{{ task.content }}</span>
       <div *ngIf="editableContent || newTask" class="card__form-field">
-        <mat-form-field>
-          <textarea matInput #cardContent name="cardContent" [(ngModel)]="task.content" value="task.content" (keypress)="closeEditable($event, 'content')"></textarea>
+        <mat-form-field><!-- TODO: make max characters in input and texarea -->
+          <textarea matInput maxlength="1024" #cardContent name="cardContent" [(ngModel)]="task.content" value="task.content" (keypress)="closeEditable($event, 'content')"></textarea>
         </mat-form-field>
         <div class="form-field__button-container" *ngIf="editableContent">
           <button mat-button type="button" color="warn" (click)="closeEditable({key: 'Escape'}, 'content')"><mat-icon>highlight_off</mat-icon> Cancel</button>

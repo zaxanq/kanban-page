@@ -1,6 +1,8 @@
 @import './../../../../../../assets/variables';
 
 $kanban-card-button-size: 3rem;
+$kanban-card-title-max-height: 6rem;
+$kanban-card-title-fade-height: 3rem;
 $main-color: mat-color($primary, 500);
 
 :host {
@@ -16,9 +18,33 @@ $main-color: mat-color($primary, 500);
   justify-content: space-between;
   align-items: flex-start;
 }
+
 .kanban-card__title {
   display: flex;
+  max-height: $kanban-card-title-max-height;
+  overflow: hidden;
   margin: $main-app-margin/2 $main-app-margin 0 0;
+  position: relative;
+  transition: ease-in-out 0.5s;
+  word-break: break-word;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: $kanban-card-title-max-height - $kanban-card-title-fade-height;
+    width: 100%;
+    height: $kanban-card-title-fade-height;
+    background: linear-gradient(to bottom, rgba($color-light-100, 0), rgba($color-light-100, 1));
+    transition: opacity 0.25s;
+  }
+
+  &:hover {
+    max-height: 16rem;
+
+    &::after {
+      opacity: 0;
+    }
+  }
 }
 
 .kanban-card__actions {
