@@ -52,39 +52,24 @@ export class KanbanColumnBodyContainerComponent implements OnInit {
 
   taskUpdate(task) {
     let taskToMove: Task;
-    let targetList: Task[];
-    if (task.status === 0) {
-      targetList = this.taskListToDo;
-    } else if (task.status === 1) {
-      targetList = this.taskListInProgress;
-    } else if (task.status === 2) {
-      targetList = this.taskListDone;
-    }
-    for (let i = 0; i < targetList.length; i++) {
-      if (task.id === targetList[i].id) {
-        taskToMove = targetList.splice(i, 1)[0];
+    this.getTaskList();
+    console.log(task);
+    for (let i = 0; i < this.columns[task.status].taskList.length; i++) {
+      if (task.id === this.columns[task.status].taskList[i].id) {
+        taskToMove = this.columns[task.status].taskList.splice(i, 1)[0];
         break;
       }
     }
     if (task.type === 'increase') {
       taskToMove.status += 1;
-      if (task.status === 0) {
-        this.taskListInProgress = this.taskListInProgress.slice();
-        this.taskListInProgress.push(taskToMove);
-      } else if (task.status === 1) {
-        this.taskListDone = this.taskListDone.slice();
-        this.taskListDone.push(taskToMove);
-      }
+      this.columns[task.status + 1].taskList = this.columns[task.status + 1].taskList.slice();
+      this.columns[task.status + 1].taskList.push(taskToMove);
     } else if (task.type === 'decrease') {
       taskToMove.status -= 1;
-      if (task.status === 1) {
-        this.taskListToDo = this.taskListToDo.slice();
-        this.taskListToDo.push(taskToMove);
-      } else if (task.status === 2) {
-        this.taskListInProgress = this.taskListInProgress.slice();
-        this.taskListInProgress.push(taskToMove);
-      }
+      this.columns[task.status - 1].taskList = this.columns[task.status - 1].taskList.slice();
+      this.columns[task.status - 1].taskList.push(taskToMove);
     }
+    this.setTaskList();
   }
   clearActive($event: MouseEvent): void {
     const children = Array.from(this.elementReference.nativeElement.children);
