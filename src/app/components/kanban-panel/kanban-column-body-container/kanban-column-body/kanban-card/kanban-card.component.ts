@@ -1,5 +1,5 @@
 import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import { Task } from '../../../../../interfaces/task.interface';
+import {Task} from '../../../../../interfaces/task.interface';
 
 @Component({
   selector: 'app-kanban-card',
@@ -16,13 +16,20 @@ export class KanbanCardComponent implements OnInit {
   @Input() editableContent = false;
   @Input() newTask = false;
   @Output() updatedTask = new EventEmitter;
+  @Output() updatedId = new EventEmitter;
   @ViewChild('cardTitle') cardTitle: ElementRef;
   @ViewChild('cardContent') cardContent: ElementRef;
-  constructor(private elementReference: ElementRef) {}
-  ngOnInit(): void {}
-  toggleFavourite(): void {
-   this.isFavourite = !this.isFavourite;
+
+  constructor(private elementReference: ElementRef) {
   }
+
+  ngOnInit(): void {
+  }
+
+  toggleFavourite(): void {
+    this.isFavourite = !this.isFavourite;
+  }
+
   removeTask(): void {
     const element = this.elementReference.nativeElement;
     element.classList.add('hide-card');
@@ -35,16 +42,15 @@ export class KanbanCardComponent implements OnInit {
       }
       this.setTaskList();
       element.remove();
+      // TODO: reset currentId if taskList.length === 0
     }, 250);
   }
 
   setTaskList() {
-    console.log('wyslij liste.');
     localStorage.setItem(this.taskListName, JSON.stringify(this.taskList));
   }
 
   getTaskList() {
-    console.log('pobierz liste.');
     this.taskList = JSON.parse(localStorage.getItem(this.taskListName));
   }
 
@@ -59,17 +65,45 @@ export class KanbanCardComponent implements OnInit {
       this.editableContent = !this.editableContent;
     }
   }
+
   closeEditable(event: KeyboardEvent, what) {
+    const task = this.elementReference.nativeElement;
+    this.getTaskList();
     if (event.key === 'Enter') {
-      if (what === 'title') {
-        this.editableTitle = !this.editableTitle;
-      } else if (what === 'content') {
-        this.editableContent = !this.editableContent;
+      for (let i = 0; i < this.taskList.length; i++) {
+        if (Number(task.id) === this.taskList[i].id) {
+          if (what === 'title') {
+            this.taskList[i].title = this.elementReference.nativeElement.getElementsByTagName('input')[0].value;
+            this.editableTitle = !this.editableTitle;
+          } else if (what === 'content') {
+            this.taskList[i].content = this.elementReference.nativeElement.getElementsByTagName('textarea')[0].value;
+            // TODO: use Reactive Forms
+            this.editableContent = !this.editableContent;
+          }
+          break;
+        }
       }
-      this.newTask = false;
+      this.taskList = this.taskList.slice();
+      this.setTaskList();
+      // modify content value
+    } else if (event.key === 'Escape') {
+      for (let i = 0; i < this.taskList.length; i++) {
+        if (Number(task.id) === this.taskList[i].id) {
+          if (what === 'title') {
+            this.task.title = this.taskList[i].title;
+            this.editableTitle = !this.editableTitle;
+          } else if (what === 'content') {
+            this.task.content = this.taskList[i].content;
+            this.editableContent = !this.editableContent;
+          }
+          break;
+        }
+      }
     }
+    this.newTask = false;
   }
+
   updateStatus(type): void {
-      this.updatedTask.emit({id: this.task.id, status: this.task.status, type: type});
+    this.updatedTask.emit({id: this.task.id, status: this.task.status, type: type});
   }
 }
