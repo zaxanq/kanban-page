@@ -9,6 +9,7 @@ import { Task } from '../../../../../interfaces/task.interface';
 export class KanbanCardComponent implements OnInit {
   @Input() status: number;
   @Input() taskList: Task[];
+  @Input() taskListName: string;
   @Input() task: Task;
   @Input() isFavourite = false;
   @Input() editableTitle = false;
@@ -26,11 +27,27 @@ export class KanbanCardComponent implements OnInit {
     const element = this.elementReference.nativeElement;
     element.classList.add('hide-card');
     setTimeout(() => {
+      this.getTaskList();
+      for (let i = 0; i < this.taskList.length; i++) {
+        if (this.taskList[i].id === Number(element.id)) {
+          this.taskList.splice(i, 1);
+        }
+      }
+      this.setTaskList();
       element.remove();
-      // console.log(element.id);
-      // localStorage.removeItem(element.id);
     }, 250);
   }
+
+  setTaskList() {
+    console.log('wyslij liste.');
+    localStorage.setItem(this.taskListName, JSON.stringify(this.taskList));
+  }
+
+  getTaskList() {
+    console.log('pobierz liste.');
+    this.taskList = JSON.parse(localStorage.getItem(this.taskListName));
+  }
+
   openEditable(event: MouseEvent, what) {
     event.stopPropagation();
     event.preventDefault();

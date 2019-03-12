@@ -9,30 +9,39 @@ import { Task } from '../../../../interfaces/task.interface';
 
 })
 export class KanbanColumnBodyComponent implements OnInit {
-  @Input() status: number;
+  @Input() column: object;
   @Input() isActive = false;
-  @Input() deselect: boolean;
   @Input() taskList: Task[];
+  @Input() taskListName: string;
   @Output() updatedTask = new EventEmitter();
-  currentId: number;
-  constructor() {
-    if (this.deselect === true) {
-    console.log('MAMY TO');
-    this.isActive = false;
-    }
-  }
+  @Input() currentId: number;
+  @Input() status: number;
+
+  constructor() {}
+
   taskUpdate(task) {
     this.updatedTask.emit(task);
   }
-  ngOnInit(): void {
-    this.currentId = this.taskList[this.taskList.length - 1].id;
+
+  ngOnInit(): void {}
+
+  setTaskList() {
+    localStorage.setItem(this.taskListName, JSON.stringify(this.taskList));
   }
+
+  getTaskList() {
+    this.taskList = JSON.parse(localStorage.getItem(this.taskListName));
+  }
+
   createTask(): void {
     const newTask = {id: this.currentId + 1, status: 0, title: 'Task bez nazwy', content: 'Opis taska', isNew: false};
+    this.getTaskList();
     this.taskList.push(newTask);
     this.currentId += 1;
+    this.setTaskList();
     console.log(this.taskList);
   }
+
   toggleCardActive(event: MouseEvent): void {
     const ignoredTags = ['mat-icon', 'input', 'textarea', 'h4', 'span'];
     event.stopPropagation();

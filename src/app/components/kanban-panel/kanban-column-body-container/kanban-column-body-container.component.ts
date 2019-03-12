@@ -8,79 +8,48 @@ import {Task} from '../../../interfaces/task.interface';
 })
 
 export class KanbanColumnBodyContainerComponent implements OnInit {
-  taskListToDo: Task[] = [
-    {
-      id: 0,
-      status: 0,
-      isNew: false,
-      title: 'Tytuł taska',
-      content: 'Do zrobienia jeszcze to i to i to i to. I tamto.'
-    },
-    {
-      id: 1,
-      status: 0,
-      isNew: false,
-      title: 'Tytuł kolejnego taska',
-      content: 'To też trzeba zrobić.'
-    },
-    {
-      id: 2,
-      status: 0,
-      isNew: false,
-      title: 'Tytuł jeszcze kolejnego taska',
-      content: 'Następna rzecz do zrobienia, która nie została jeszcze zaczęta, a dobrze byłoby ją skończyć.'
-    },
-    {
-      id: 7,
-      status: 0,
-      isNew: false,
-      title: 'Nierozpoczęty task',
-      content: 'Status taska to 0. Jego ramka będzie czerwona.'
-    }
-  ];
-  taskListInProgress: Task[] = [
-    {
-      id: 3,
-      status: 1,
-      isNew: false,
-      title: 'Tytuł rozpoczętego taska',
-      content: 'Ta rzecz z kolei jest już zaczęta, ale trzeba ją dokończyć.'
-    },
-    {
-      id: 4,
-      status: 1,
-      isNew: false,
-      title: 'Task o statusie 1',
-      content: 'Czyli task in-progress. Do uzupełniania.'
-    },
-    {
-      id: 6,
-      status: 1,
-      isNew: false,
-      title: 'Rozpoczęty task',
-      content: 'Status taska to 1. Jego ramka będzie żółta.'
-    }
-  ];
-  taskListDone: Task[] = [
-    {
-      id: 5,
-      status: 2,
-      isNew: false,
-      title: 'Wykonany task',
-      content: 'Status taska to 2. W końcu chociaż jedna w pełni zakończona rzecz. :)'
-    },
-    {
-      id: 8,
-      status: 2,
-      isNew: false,
-      title: 'Ukończony task',
-      content: 'Status taska to 2. Jego ramka będzie zielona.'
-    }
-  ];
+  taskListToDo: Task[] = [];
+  taskListInProgress: Task[] = [];
+  taskListDone: Task[] = [];
+  @Input() currentId: number;
   deselectCard = false;
 
+  @Input() columns = [
+    {class: 'column--to-do', status: 0, taskList: this.taskListToDo, taskListName: 'taskListToDo'},
+    {class: 'column--in-progress', status: 1, taskList: this.taskListInProgress, taskListName: 'taskListInProgress'},
+    {class: 'column--done', status: 2, taskList: this.taskListDone, taskListName: 'taskListDone'}
+  ];
+  maxId: number[] = [0, 0, 0];
+
   constructor(private elementReference: ElementRef) { }
-  ngOnInit(): void {}
+
+  ngOnInit(): void {
+    if (!localStorage.getItem('taskListToDo')) {
+      this.setTaskList();
+      this.currentId = 0;
+    } else {
+      this.getTaskList();
+      this.currentId = Math.max(this.maxId[0], this.maxId[1], this.maxId[2]);
+    }
+  }
+
+  setTaskList() {
+    for (let i = 0; i < this.columns.length; i++) {
+      localStorage.setItem(this.columns[i].taskListName, JSON.stringify(this.columns[i].taskList));
+    }
+  }
+
+  getTaskList() {
+    for (let i = 0; i < this.columns.length; i++) {
+      if (JSON.parse(localStorage.getItem(this.columns[i].taskListName)).length > 0) {
+        this.columns[i].taskList = JSON.parse(localStorage.getItem(this.columns[i].taskListName));
+        this.maxId[i] = this.columns[i].taskList[this.columns[i].taskList.length - 1].id;
+      } else {
+        this.setTaskList();
+      }
+    }
+  }
+
   taskUpdate(task) {
     let taskToMove: Task;
     let targetList: Task[];

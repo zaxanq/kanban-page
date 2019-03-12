@@ -1,7 +1,7 @@
 <ng-container *ngFor="let task of taskList">
   <app-kanban-card *ngIf="task.status === status" id="{{task.id}}" [(task)]="task"
-                   [(taskList)]="taskList" (updatedTask)="taskUpdate($event)" class="kanban-card"
-                   [newTask]="task.isNew" (click)="toggleCardActive($event)"></app-kanban-card>
+                   [(taskList)]="taskList" [(taskListName)]="taskListName" (updatedTask)="taskUpdate($event)"
+                   class="kanban-card" [newTask]="task.isNew" (click)="toggleCardActive($event)"></app-kanban-card>
 </ng-container>
 <div *ngIf="status === 0" class="kanban-column__add-button-container">
   <button mat-icon-button class="kanban-column__add-button" color="primary" type="button" (click)="createTask()">
