@@ -1,5 +1,6 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Task} from '../../../../../interfaces/task.interface';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-kanban-card',
@@ -10,20 +11,34 @@ export class KanbanCardComponent implements OnInit {
   @Input() status: number;
   @Input() taskList: Task[];
   @Input() taskListName: string;
-  @Input() task: Task;
+  @Input()
+  set task(task: Task) {
+    if (task && this.cardForm) {
+      this.cardTask = task;
+      this.cardForm.controls.cardTitle.setValue(task.title);
+    }
+  }
   @Input() isFavourite = false;
   @Input() editableTitle = false;
   @Input() editableContent = false;
   @Input() newTask = false;
   @Output() updatedTask = new EventEmitter;
   @Output() updatedId = new EventEmitter;
-  @ViewChild('cardTitle') cardTitle: ElementRef;
-  @ViewChild('cardContent') cardContent: ElementRef;
+  cardForm: FormGroup;
+  cardTask: Task;
 
-  constructor(private elementReference: ElementRef) {
+  constructor(private elementReference: ElementRef, private fb: FormBuilder) {
   }
 
   ngOnInit(): void {
+    this.initCardForm();
+  }
+
+  initCardForm(): void {
+    this.cardForm = this.fb.group({
+      cardTitle: [this.cardTask ? this.cardTask.title : '', Validators.required],
+      cardContent: ['', Validators.required],
+    });
   }
 
   toggleFavourite(): void {
@@ -59,9 +74,10 @@ export class KanbanCardComponent implements OnInit {
     event.preventDefault();
     if (what === 'title') {
       this.editableTitle = !this.editableTitle;
-      setTimeout(() => this.cardTitle.nativeElement.focus(), 0);
+      // this.taskList[0].title
+      setTimeout(() => console.log(this.cardForm.get('cardTitle')), 0);
     } else if (what === 'content') {
-      setTimeout(() => this.cardContent.nativeElement.focus(), 0);
+      setTimeout(() => console.log(this.cardForm.get('cardContent')), 0);
       this.editableContent = !this.editableContent;
     }
   }
@@ -73,10 +89,10 @@ export class KanbanCardComponent implements OnInit {
       for (let i = 0; i < this.taskList.length; i++) {
         if (Number(task.id) === this.taskList[i].id) {
           if (what === 'title') {
-            this.taskList[i].title = this.elementReference.nativeElement.getElementsByTagName('input')[0].value;
+            // this.taskList[i].title = this.cardTitle.value;
             this.editableTitle = !this.editableTitle;
           } else if (what === 'content') {
-            this.taskList[i].content = this.elementReference.nativeElement.getElementsByTagName('textarea')[0].value;
+            // this.taskList[i].content = this.cardContent.value;
             // TODO: use Reactive Forms
             this.editableContent = !this.editableContent;
           }

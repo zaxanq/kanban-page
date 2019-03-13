@@ -1,19 +1,24 @@
-<form>
-  <div class="kanban-card">
+<form [formGroup]="cardForm">
+  <div class="kanban-card" *ngIf="cardTask">
     <div class="kanban-card__header">
-      <h4 [hidden]="editableTitle || newTask" (dblclick)="openEditable($event, 'title')"><span class="kanban-card__title">{{ task.title }}</span></h4>
+      <h4 [hidden]="editableTitle || newTask" (dblclick)="openEditable($event, 'title')">
+        <span class="kanban-card__title">{{ cardTask.title }}</span>
+      </h4>
       <div *ngIf="editableTitle || newTask" class="card__form-field">
-        <mat-form-field>
-            <input matInput maxlength="128" #cardTitle name="cardTitle" [(ngModel)]="task.title" value="task.title" (keypress)="closeEditable($event, 'title')">
-        </mat-form-field>
+        <input matInput type="text" maxlength="128" formControlName="cardTitle"
+               (keypress)="closeEditable($event, 'title')" required>
         <div class="form-field__button-container" *ngIf="editableTitle">
-          <button mat-button type="button" color="warn" (click)="closeEditable({key: 'Escape'}, 'title')"><mat-icon>highlight_off</mat-icon> Cancel</button>
-          <button mat-button type="button" color="primary" (click)="closeEditable({key: 'Enter'}, 'title')"><mat-icon>check_circle_outline</mat-icon> Save</button>
+          <button mat-button type="button" color="warn" (click)="closeEditable({key: 'Escape'}, 'title')">
+            <mat-icon>highlight_off</mat-icon> Cancel
+          </button>
+          <button mat-button type="button" color="primary" (click)="closeEditable({key: 'Enter'}, 'title')">
+            <mat-icon>check_circle_outline</mat-icon> Save
+          </button>
         </div>
       </div>
       <div class="kanban-card__actions">
         <button mat-icon-button
-                [disabled]="task.status < 1"
+                [disabled]="cardTask.status < 1"
                 class="kanban-card__action-button"
                 id="button--left"
                 color="primary"
@@ -22,7 +27,7 @@
           <mat-icon>keyboard_arrow_left</mat-icon>
         </button>
         <button mat-icon-button
-                [disabled]="task.status > 1"
+                [disabled]="cardTask.status > 1"
                 class="kanban-card__action-button"
                 id="button--right"
                 color="primary"
@@ -33,14 +38,18 @@
       </div>
     </div>
     <div class="kanban-card__content">
-      <span [hidden]="editableContent || newTask" (dblclick)="openEditable($event, 'content')">{{ task.content }}</span>
+      <span [hidden]="editableContent || newTask" (dblclick)="openEditable($event, 'content')">{{ cardTask.content }}</span>
       <div *ngIf="editableContent || newTask" class="card__form-field">
-        <mat-form-field><!-- TODO: make max characters in input and texarea -->
-          <textarea matInput maxlength="384" #cardContent name="cardContent" [(ngModel)]="task.content" value="task.content" (keypress)="closeEditable($event, 'content')"></textarea>
-        </mat-form-field>
+        <textarea matInput maxlength="384"  formControlName="cardContent"
+                  (keypress)="closeEditable($event, 'content')" required>
+        </textarea>
         <div class="form-field__button-container" *ngIf="editableContent">
-          <button mat-button type="button" color="warn" (click)="closeEditable({key: 'Escape'}, 'content')"><mat-icon>highlight_off</mat-icon> Cancel</button>
-          <button mat-button type="button" color="primary" (click)="closeEditable({key: 'Enter'}, 'content')"><mat-icon>check_circle_outline</mat-icon> Save</button>
+          <button mat-button type="button" color="warn" (click)="closeEditable({key: 'Escape'}, 'content')">
+            <mat-icon>highlight_off</mat-icon> Cancel
+          </button>
+          <button mat-button type="button" color="primary" (click)="closeEditable({key: 'Enter'}, 'content')">
+            <mat-icon>check_circle_outline</mat-icon> Save
+          </button>
         </div>
       </div>
     </div>
